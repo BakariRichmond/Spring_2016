@@ -3,9 +3,8 @@ public class Driver
 	public static void main(String[] args)
 	{
 		String s = "5";
-		String bin = "111001";
-		System.out.println(Driver.binaryToInteger(bin));
-		
+		String bin = "10110";
+		System.out.println(Driver.decimalToBase(2989, 16));
 	}
 	
 	//this guy should take a String representation of a binary number
@@ -32,11 +31,29 @@ public class Driver
 		return total;
 	}
 	
+	static String decimalToBase(int decimal, int radix)
+	{
+		String answer = "";
+		while(decimal > 0)
+		{
+			char current = Driver.intToChar(decimal % radix);
+			answer = answer + current;
+			decimal = (decimal - Driver.charToInt(current)) / radix;	
+		}
+	
+		return Driver.reverseString(answer);
+	}
 	//return the integer version of the char parameter
 	static int charToInt(char c)
 	{
 		return "0123456789".indexOf(c);
 	}
+	
+	static char intToChar(int val)
+	{
+		return "0123456789ABCDEF".charAt(val);
+	}
+	
 	
 	//Converts s, which is a string representation
 	//of an int into an int representation
