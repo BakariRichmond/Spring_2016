@@ -2,14 +2,20 @@ public class Driver
 {
 	public static void main(String[] args)
 	{
-		String s = "5";
+		String s = "hello";
 		String bin = "10110";
-		System.out.println(Driver.decimalToBase(2989, 16));
+		System.out.println(Driver.stringToCharArray(s));
 	}
 	
-	//this guy should take a String representation of a binary number
-	//as a parameter and return as a int the decimal equivalent
-	//"1011" -> 11
+	static char[] stringToCharArray(String s)
+	{
+		char[] stringArray = new char [s.length()];
+		for(int i = 0; i <= s.length()-1; i = i + 1)
+		{
+			stringArray[i] = s.charAt(i);
+		}
+		return stringArray;
+	}
 	static int binaryToInteger(String bin)
 	{
 		int place = 0;
