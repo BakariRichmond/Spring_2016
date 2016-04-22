@@ -1,65 +1,199 @@
+import java.util.Random;
+
+
 public class Driver 
 {
 	public static void main(String[] args)
 	{
-		String s = "hello";
-		String bin = "10110";
-		System.out.println(Driver.stringToCharArray(s));
+		int[] arrayOfNumbers = new int[10];
+		Driver.fillArrayWithRandomInts(arrayOfNumbers);
+		Driver.printIntArray(arrayOfNumbers);
+		Driver.sortArray(arrayOfNumbers);
+	}
+	
+	//Homework
+	static void sortArray(int[] ar)
+	{
+		for(int i = 0; i < 101; i++)
+		{
+			int curr = 0;
+			while(curr < ar.length)
+			{
+				if(ar[curr] == i)
+				{
+				System.out.print(ar[curr] + " ");
+				}
+				curr = curr + 1;	
+			}		
+		}
+	}
+	
+	static void fillArrayWithRandomInts(int[] ar)
+	{
+		Random r = new Random();
+		for(int i = 0; i < ar.length; i++)
+		{
+			ar[i] = r.nextInt(101);
+		}
+	}
+	
+	static void printIntArray(int[] ar)
+	{
+		for(int i = 0; i < ar.length; i++)
+		{
+			System.out.print(ar[i] + " ");
+		}
+		System.out.println();
+	}
+	
+	static String charArrayToString(char[] ar)
+	{
+		String answer = "";
+		for(int i = 0; i < ar.length; i++)
+		{
+			answer += ar[i];
+		}
+		return answer;
+	}
+	
+	static String intArrayToString(int[] ar)
+	{
+		String answer = "";
+		for(int i = 0; i < ar.length; i++)
+		{
+			answer += ar[i];
+		}
+		return answer;
 	}
 	
 	static char[] stringToCharArray(String s)
 	{
-		char[] stringArray = new char [s.length()];
-		for(int i = 0; i <= s.length()-1; i = i + 1)
+		char[] ar = new char[s.length()];
+		for(int i = 0; i < s.length(); i++)
 		{
-			stringArray[i] = s.charAt(i);
+			ar[i] = s.charAt(i);
 		}
-		return stringArray;
+		return ar;
 	}
-	static int binaryToInteger(String bin)
+	
+	static String substring(String s, int beginPos, int endPos)
 	{
-		int place = 0;
+		String answer = "";
+		for(int i = beginPos; i < endPos; i++)
+		{
+			answer += s.charAt(i);
+		}
+		return answer;
+	}
+	
+	static String substring(String s, int pos)
+	{
+		String answer = "";
+		for(int i = pos; i < s.length(); i++)
+		{
+			answer += s.charAt(i);
+			//answer = answer + s.charAt(i)
+		}
+		return answer;
+	}
+	
+	static char int2Char(int num)
+	{
+		String map = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		return map.charAt(num);
+	}
+	
+	static String decimalToBase(int dec, int radix)
+	{
+		String answer = "";
+		while(dec != 0)
+		{
+			answer =  Driver.int2Char(dec % radix) + answer;
+			dec /= radix;
+		}
+		return answer;
+	}
+	
+	static String reverse(String s)
+	{
+		String answer = "";
+		for(int i = s.length()-1; i >= 0; i--)
+		{
+			answer += s.charAt(i);
+		}
+		return answer;
+	}
+	
+	static int baseToInteger(String s, int radix)
+	{
+		int place = 1;
 		int total = 0;
-		for(int i = bin.length()-1; i >= 0; i--)
-		{	
-				total = total + (Driver.charToInt(bin.charAt(i)) * (place));
-				place = place * 2;
-				if(place == 0);
-				{
-					place = place + 1;
-					if(Driver.charToInt(bin.charAt(i)) == 1)
-							{
-							total = total + 1;
-							}
-				}
-				
+		char currChar;
+		
+		for(int i = s.length()-1; i >= 0; i--)
+		{
+			currChar = s.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= radix;
 		}
 		return total;
 	}
 	
-	static String decimalToBase(int decimal, int radix)
+	static int hexToInteger(String hex)
 	{
-		String answer = "";
-		while(decimal > 0)
+		int place = 1;
+		int total = 0;
+		char currChar;
+		
+		for(int i = hex.length()-1; i >= 0; i--)
 		{
-			char current = Driver.intToChar(decimal % radix);
-			answer = answer + current;
-			decimal = (decimal - Driver.charToInt(current)) / radix;	
+			currChar = hex.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= 16;
 		}
-	
-		return Driver.reverseString(answer);
+		return total;
 	}
+	
+	static int octalToInteger(String oct)
+	{
+		int place = 1;
+		int total = 0;
+		char currChar;
+		
+		for(int i = oct.length()-1; i >= 0; i--)
+		{
+			currChar = oct.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= 8;
+		}
+		return total;
+	}
+	
+	//this guy should take a String representation of a binary number
+	//as a parameter and return as a int the decimal equivalent
+	//"1011" -> 11
+	static int binaryToInteger(String bin)
+	{
+		int place = 1;
+		int total = 0;
+		char currChar;
+		for(int i = bin.length()-1; i >= 0; i--)
+		{
+			currChar = bin.charAt(i);
+			if(currChar == '1')
+			{
+				total += place;
+			}
+			place *= 2;
+		}
+		return total;
+	}
+	
 	//return the integer version of the char parameter
 	static int charToInt(char c)
 	{
-		return "0123456789".indexOf(c);
+		return "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(c);
 	}
-	
-	static char intToChar(int val)
-	{
-		return "0123456789ABCDEF".charAt(val);
-	}
-	
 	
 	//Converts s, which is a string representation
 	//of an int into an int representation
