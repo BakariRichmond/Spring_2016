@@ -8,7 +8,7 @@ public class Driver
 		int[] arrayOfNumbers = new int[10];
 		Driver.fillArrayWithRandomInts(arrayOfNumbers);
 		Driver.printIntArray(arrayOfNumbers);
-		Driver.sortArray(arrayOfNumbers);
+		Driver.BubbleSort(arrayOfNumbers);
 	}
 	
 	//Homework
@@ -27,6 +27,27 @@ public class Driver
 			}		
 		}
 	}
+	
+	static void BubbleSort(int[] ar)
+	{
+
+			
+			for(int i = ar.length - 1; i > 0; i = i - 1)
+			{
+				for (int j = 1; j <= i; j++)
+			      {
+			         if (ar[j-1] > ar[j])
+			         {
+			              int curr = ar[j-1];
+			              ar[j-1] = ar[j];
+			              ar[j] = curr;
+			         }
+			      }
+			
+			}
+			Driver.printIntArray(ar);
+		}
+	
 	
 	static void fillArrayWithRandomInts(int[] ar)
 	{
